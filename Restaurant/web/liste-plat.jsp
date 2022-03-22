@@ -41,15 +41,15 @@
             </div>
         </div>
     <div class="mainContainer">
+        <div class="listePlat">
         <% for(int i=0; i<listePlat.size(); i++) { %>
-            <div class="listePlat">
             <div class="cardPlat">
                 <div class="nom"><%= listePlat.get(i).getNom() %></div>
             <div class="metadata">
                 <div class="prix"><%= listePlat.get(i).getPrix() %>$</div>
             </div>
-        </div>
         <% } %>
+        </div>
     </div>
     </div>
 </body>
