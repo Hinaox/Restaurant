@@ -35,7 +35,8 @@ public class ListePlatController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Vector<Plat> listePlat = PlatService.listePlat();
+        String idCategorie = request.getParameter("idCategorie");
+        Vector<Plat> listePlat = PlatService.listePlatCategorie(idCategorie);
         request.setAttribute("listePlat", listePlat);
         //PrintWriter out = response.getWriter();
         //out.println(listePlat.size());
