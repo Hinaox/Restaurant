@@ -20,27 +20,27 @@
         <title>Document</title>
     </head>
     <body>
-        <div class="filtre">
-            <h1>Filtre</h1>
-            <div class="formulaire">
-                <form action="" method="">
-                    <table >
-                        <tr>
-                            <td><label for="categorie">Categorie:</label></td>
-                            <td>
-                                <select name="" id="">
-                                    <option value="">-</option>
-                                    <option value="">Dessert</option>
-                                    <!-- <option value=""></option> -->
-                                </select>
-                            </td>
-                        </tr>
-                    </table>
-                </form>
-
-            </div>
-        </div>
         <div class="mainContainer">
+            <div class="filtre">
+                <h1>Filtre</h1>
+                <div class="formulaire">
+                    <form action="" method="">
+                        <table >
+                            <tr>
+                                <td><label for="categorie">Categorie:</label></td>
+                                <td>
+                                    <select name="" id="">
+                                        <option value="">-</option>
+                                        <option value="">Dessert</option>
+                                        <!-- <option value=""></option> -->
+                                    </select>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+
+                </div>
+            </div>
             <div class="listePlat">
                 <% for(int i=0; i<listePlat.size(); i++) { %>
                 <div class="cardPlat">
@@ -48,8 +48,8 @@
                     <div class="metadata">
                         <div class="prix"><%= listePlat.get(i).getPrix() %>$</div>
                     </div>
-                    <% } %>
                 </div>
+                <% } %>
             </div>
         </div>
     </body>
