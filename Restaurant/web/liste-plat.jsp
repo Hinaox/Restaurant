@@ -4,7 +4,12 @@
     Author     : TiavinaJoy
 --%>
 
+<%@page import="model.Plat"%>
+<%@page import="java.util.Vector"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    Vector<Plat> listePlat = (Vector<Plat>) request.getAttribute("listePlat");
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,25 +21,15 @@
 </head>
    <body>
     <div class="mainContainer">
-        <div class="listePlat">
+        <% for(int i=0; i<listePlat.size(); i++) { %>
+            <div class="listePlat">
             <div class="cardPlat">
-                <div class="nom">Nom plat</div>
+                <div class="nom"><%= listePlat.get(i).getNom() %></div>
             <div class="metadata">
-                <div class="prix">300$</div>
+                <div class="prix"><%= listePlat.get(i).getPrix() %>$</div>
             </div>
         </div>
-        <div class="cardPlat">
-            <div class="nom">Nom plat</div>
-            <div class="metadata">
-                <div class="prix">300$</div>
-            </div>
-        </div>
-        <div class="cardPlat">
-            <div class="nom">Nom plat</div>
-            <div class="metadata">
-                <div class="prix">300$</div>
-            </div>
-        </div>
+        <% } %>
     </div>
     </div>
 </body>
