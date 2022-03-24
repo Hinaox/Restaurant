@@ -18,20 +18,19 @@
 
                         <body>
                             <div class="main">
-                                <div class="navbar">
-                                    <div class="title">
-                                        <img src="images/fourchette.png" width="50" alt="">
-                                        <span class="titre">Foodies</span>
-                                    </div>
-                                    <div class="listeBar">
-                                        <ul>
-                                            <li> <img src="images/daily-specials-board.png" height="30" alt=""> Carte
-                                            </li>
-                                            <li> <img src="images/credit.png" height="30" alt=""> Payement</li>
-                                            <li> <img src="images/delivery-man.png" height="30" alt=""> Livraison</li>
-                                        </ul>
-                                    </div>
-                                </div>
+                               <div class="navBar">
+            <div class="TitleNav">
+                <img src="images/fourchette.png" width="50" alt="">
+                <span class="navTitle">Foodies</span>
+            </div>
+            <div class="listeBar">
+                <ul>
+                    <li class="li-nav"> <img src="images/daily-specials-board.png" height="30" alt=""> Carte</li>
+                    <li class="li-nav"> <img src="images/credit.png" height="30" alt=""> Payement</li>
+                    <li class="li-nav"> <img src="images/delivery-man.png" height="30" alt=""> Livraison</li>
+                </ul>
+            </div>
+        </div>
                                 <div class="mainContainer">
                                     <div class="filtre">
                                         <h1>Filtre</h1>
