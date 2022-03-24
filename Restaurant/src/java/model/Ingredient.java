@@ -12,23 +12,29 @@ import db.Mere;
  * @author amboa
  */
 public class Ingredient extends Mere{
-    String id;
+    String idPlat;
     String nom;
+    Double prix;//par gramme
+    int quantite;
+    Double somme;
 
     public Ingredient() {
     }
 
-    public Ingredient(String id, String nom) {
-        this.id = id;
+    public Ingredient(String idPlat, String nom, Double prix, int quantite, Double somme) {
+        this.idPlat = idPlat;
         this.nom = nom;
+        this.prix = prix;
+        this.quantite = quantite;
+        this.somme = somme;
     }
 
-    public String getId() {
-        return id;
+    public String getIdPlat() {
+        return idPlat;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setIdPlat(String idPlat) {
+        this.idPlat = idPlat;
     }
 
     public String getNom() {
@@ -37,6 +43,30 @@ public class Ingredient extends Mere{
 
     public void setNom(String nom) {
         this.nom = nom;
+    }
+
+    public Double getPrix() {
+        return prix;
+    }
+
+    public void setPrix(Double prix) {
+        this.prix = prix;
+    }
+
+    public int getQuantite() {
+        return quantite;
+    }
+
+    public void setQuantite(int quantite) {
+        this.quantite = quantite;
+    }
+
+    public Double getSomme() {
+        return somme;
+    }
+
+    public void setSomme(Double somme) {
+        this.somme = somme;
     }
     
 }

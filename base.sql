@@ -3,7 +3,7 @@ create user resto;
 create table plat(
 	id varchar(20) primary key,
 	nom varchar(255),
-	prix double
+	prix double precision
 );
 create sequence platseq  start with 1 increment by 1;
 insert into plat values(CONCAT('Plat',nextVal('platseq')),'Soupe chinoise',2000);

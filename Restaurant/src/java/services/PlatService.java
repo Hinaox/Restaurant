@@ -9,17 +9,36 @@ import db.ManipDb;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.HashMap;
 import java.util.Vector;
 import model.Categorie;
 import model.CategorieDetail;
 import model.CategoriePlat;
 import model.Plat;
+import model.PrixRevient;
 
 /**
  *
  * @author amboa
  */
 public class PlatService extends Service{
+    public static Vector<PrixRevient> allPrixRevient() {
+        try {
+            Connection con = ManipDb.pgConnect(user, database, password);
+            PrixRevient model = new PrixRevient();
+            Object[] result = model.findAll(con, "");
+            Vector<PrixRevient> listePrixRevient = new Vector();
+            for(Object elt: result) {
+                listePrixRevient.add((PrixRevient) elt);
+            }
+            con.close();
+            return listePrixRevient;
+        } catch(Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
     public static Vector<Plat> listePlat() {
         try {
             Connection con = ManipDb.pgConnect(user, database, password);
@@ -75,5 +94,14 @@ public class PlatService extends Service{
             e.printStackTrace();
             return null;
         }  
+    }
+    
+    public static HashMap<String, Plat> listePlatParId() {
+        Vector<Plat> listePlat = listePlat();
+        HashMap<String, Plat> retour = new HashMap();
+        for(Plat p: listePlat) {
+            retour.put(p.getId(), p);
+        }
+        return retour;
     }
 }
