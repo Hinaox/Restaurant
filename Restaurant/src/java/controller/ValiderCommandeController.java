@@ -7,22 +7,18 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Vector;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Plat;
-import services.PlatService;
 
 /**
  *
  * @author amboa
  */
-@WebServlet(name = "PlatController", urlPatterns = {"/liste-plat"})
-public class ListePlatController extends HttpServlet {
+@WebServlet(name = "ValiderCommandeController", urlPatterns = {"/ValiderCommande"})
+public class ValiderCommandeController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,13 +31,19 @@ public class ListePlatController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String idCategorie = request.getParameter("idCategorie");
-        Vector<Plat> listePlat = PlatService.listePlatCategorie(idCategorie);
-        request.setAttribute("listePlat", listePlat);
-        //PrintWriter out = response.getWriter();
-        //out.println(listePlat.size());
-        RequestDispatcher dispat = request.getRequestDispatcher("liste-plat_1.jsp");
-        dispat.forward(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet ValiderCommandeController</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet ValiderCommandeController at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

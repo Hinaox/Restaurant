@@ -33,7 +33,9 @@
         </div>
                                 <div class="mainContainer">
                                     <div class="filtre">
-                                        <h1>Filtre</h1>
+                                        <h1>
+                                            Filtre
+                                        </h1>
                                         <div class="formulaire">
                                             <form action="" method="">
                                                 <table>
@@ -53,20 +55,20 @@
                                         </div>
                                     </div>
                                     <div class="listePlat">
-                                        <% for(int i=0; i<listePlat.size(); i++) { %>
+                                            <% for(Plat p: listePlat) { %>
                                             <div class="cardPlat">
                                                 <div class="photo">
                                                     <img src="images/img/huitre.jpg" height="300" alt="">
                                                 </div>
                                                 <div class="nom">
-                                                    <%= listePlat.get(i).getNom() %>
+                                                    <%= p.getNom() %>
                                                 </div>
                                                 <div class="metadata">
                                                     <div class="categorie">
                                                         <img src="images/ice-cream.png" width="20" alt=""> categorie
                                                     </div>
                                                     <div class="prix">
-                                                        <%= listePlat.get(i).getPrix() %>$
+                                                        <%= p.getPrix() %>$
                                                     </div>
                                                 </div>
                                                 <div class="buttons">
@@ -75,6 +77,7 @@
                                             </div>
                                             <% } %>
                                     </div>
+                                    
                                 </div>
                             </div>
                         </body>

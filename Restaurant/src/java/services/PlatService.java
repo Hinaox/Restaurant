@@ -15,6 +15,7 @@ import model.Categorie;
 import model.CategorieDetail;
 import model.CategoriePlat;
 import model.Plat;
+import model.PrixDeVente;
 import model.PrixRevient;
 
 /**
@@ -22,6 +23,43 @@ import model.PrixRevient;
  * @author amboa
  */
 public class PlatService extends Service{
+    
+    /*public static Double getPrixVente(Double prixRevient, Double limite1, Double limite2) {
+        
+    }*/
+    
+    public static Double getPrixRevient(String idPlat) {
+        try {
+            Connection con = ManipDb.pgConnect(user, database, password);
+            PrixRevient model = new PrixRevient();
+            model.setIdPlat(idPlat);
+            Object[] result = model.findAll(con, "");
+            model = (PrixRevient) result[0];
+            con.close();
+            return model.getRevient();
+        } catch(Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    public static Vector<PrixDeVente> allPrixDeVente() {
+        try {
+            Connection con = ManipDb.pgConnect(user, database, password);
+            PrixDeVente model = new PrixDeVente();
+            Object[] result = model.findAll(con, "");
+            Vector<PrixDeVente> listePrixRevient = new Vector();
+            for(Object elt: result) {
+                listePrixRevient.add((PrixDeVente) elt);
+            }
+            con.close();
+            return listePrixRevient;
+        } catch(Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
     public static Vector<PrixRevient> allPrixRevient() {
         try {
             Connection con = ManipDb.pgConnect(user, database, password);
@@ -79,6 +117,9 @@ public class PlatService extends Service{
             Connection con = ManipDb.pgConnect(user, database, password);
             Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             String req = "SELECT * FROM plat WHERE id IN (SELECT idPlat FROM categoriePlat WHERE idCategorie ='"+id+"' )";
+            if(id == null) {
+                req = "SELECT * FROM plat";
+            }
             System.out.println(req);
             ResultSet res = stmt.executeQuery(req);
             Vector<Plat> listePlat = new Vector();

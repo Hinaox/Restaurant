@@ -14,15 +14,17 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Plat;
-import services.PlatService;
+import model.Pourboire;
+import model.Serveur;
+import services.CommandeService;
+import services.ServeurService;
 
 /**
  *
  * @author amboa
  */
-@WebServlet(name = "PlatController", urlPatterns = {"/liste-plat"})
-public class ListePlatController extends HttpServlet {
+@WebServlet(name = "TotalPourboireController", urlPatterns = {"/TotalPourboire"})
+public class TotalPourboireController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,12 +37,17 @@ public class ListePlatController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String idCategorie = request.getParameter("idCategorie");
-        Vector<Plat> listePlat = PlatService.listePlatCategorie(idCategorie);
-        request.setAttribute("listePlat", listePlat);
-        //PrintWriter out = response.getWriter();
-        //out.println(listePlat.size());
-        RequestDispatcher dispat = request.getRequestDispatcher("liste-plat_1.jsp");
+        Vector<Serveur> listeServeur = ServeurService.listeServeur();
+        request.setAttribute("listeServeur", listeServeur);
+        String idServeur = "all";
+        String date1 = null;
+        String date2 = null;
+        if(request.getParameter("idServeur")!= null)idServeur = request.getParameter("idServeur");
+        date1 = request.getParameter("date1");
+        date2 = request.getParameter("date2");
+        Vector<Pourboire> listePourboire = CommandeService.getPourboire(idServeur, date1, date2);
+        request.setAttribute("listePourboire", listePourboire);
+        RequestDispatcher dispat = request.getRequestDispatcher("pourboire.jsp");
         dispat.forward(request, response);
     }
 

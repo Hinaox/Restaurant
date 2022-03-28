@@ -7,22 +7,20 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Vector;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Plat;
-import services.PlatService;
+import javax.servlet.http.HttpSession;
+import services.CommandeService;
 
 /**
  *
  * @author amboa
  */
-@WebServlet(name = "PlatController", urlPatterns = {"/liste-plat"})
-public class ListePlatController extends HttpServlet {
+@WebServlet(name = "NewCommandeController", urlPatterns = {"/NewCommande"})
+public class NewCommandeController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,13 +33,12 @@ public class ListePlatController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String idCategorie = request.getParameter("idCategorie");
-        Vector<Plat> listePlat = PlatService.listePlatCategorie(idCategorie);
-        request.setAttribute("listePlat", listePlat);
-        //PrintWriter out = response.getWriter();
-        //out.println(listePlat.size());
-        RequestDispatcher dispat = request.getRequestDispatcher("liste-plat_1.jsp");
-        dispat.forward(request, response);
+        String numTable = request.getParameter("numTable");
+        String idCommande = CommandeService.nouvelleCommande(numTable);
+        HttpSession session = request.getSession();
+        session.setAttribute("idCommande", idCommande);
+        //System.out.println(idCommande);
+        response.sendRedirect("liste-plat");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

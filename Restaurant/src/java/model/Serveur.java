@@ -5,35 +5,22 @@
  */
 package model;
 
-import db.ManipDb;
 import db.Mere;
-import java.util.Vector;
-import services.PlatService;
 
 /**
  *
  * @author amboa
  */
-public class Plat extends Mere{
+public class Serveur extends Mere{
     String id;
     String nom;
-    Double prix;
 
-    public Plat() {
+    public Serveur() {
     }
 
-    public Plat(String id, String nom, Double prix) {
+    public Serveur(String id, String nom) {
         this.id = id;
         this.nom = nom;
-        this.prix = prix;
-    }
-    
-    public Double getPrixRevient() {
-        return PlatService.getPrixRevient(id);
-    }
-    
-    public Vector<Ingredient> getIngredient() {
-        return null;
     }
 
     public String getId() {
@@ -50,14 +37,6 @@ public class Plat extends Mere{
 
     public void setNom(String nom) {
         this.nom = nom;
-    }
-
-    public Double getPrix() {
-        return prix;
-    }
-
-    public void setPrix(Double prix) {
-        this.prix = prix;
     }
     
 }
