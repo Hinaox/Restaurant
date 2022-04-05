@@ -29,6 +29,26 @@ import static services.Service.user;
  */
 public class CommandeService extends Service{
     
+    public static void platEnPreparation(DetailsCommande d) {
+        try {
+            Connection con = ManipDb.pgConnect(user, database, password);
+            d.enPreparation(con);
+            con.close();
+        } catch(Exception e ){
+            e.printStackTrace();
+        }
+    }
+    
+    public static void platPrepare(DetailsCommande d) {
+        try {
+            Connection con = ManipDb.pgConnect(user, database, password);
+            d.estPrepare(con);
+            con.close();
+        } catch(Exception e ){
+            e.printStackTrace();
+        }
+    }
+    
     public static DetailsCommande[] getListeLivraisonExterieur() {
         try {
             Connection con = ManipDb.pgConnect(user, database, password);
@@ -183,6 +203,24 @@ public class CommandeService extends Service{
             }
             con.close();
             return listeDetailsCommande;
+        } catch(Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    } 
+    
+    public static DetailsCommande findDetailsCommande(String id) {
+        try {
+            Connection con = ManipDb.pgConnect(user, database, password);
+            DetailsCommande model = new DetailsCommande();
+            model.setId(id);
+            Object[] result = model.findAll(con, "");
+            Vector<DetailsCommande> listeDetailsCommande = new Vector();
+            for(Object  elt: result) {
+                listeDetailsCommande.add((DetailsCommande) elt);
+            }
+            con.close();
+            return listeDetailsCommande.get(0);
         } catch(Exception e) {
             e.printStackTrace();
             return null;

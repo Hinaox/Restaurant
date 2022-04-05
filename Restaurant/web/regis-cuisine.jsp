@@ -37,7 +37,7 @@
                         </div>
                         <div class="nom"><%=listePlatParId.get(d.getIdPlat()).getNom()%></div>
                         <div class="buttons">
-                            <button class="ajout">Fabriquer</button>
+                            <a href="Preparation?id=<%=d.getId()%>"><button class="ajout">Fabriquer</button></a>
                         </div>
                     </div>
                 <% } %>
@@ -59,7 +59,7 @@
                         <div class="nom"><%=listePlatParId.get(d.getIdPlat()).getNom()%></div>
 
                         <div class="buttons">
-                            <button class="ajout">Prêt</button>
+                            <a href="Masaka?id=<%=d.getId()%>"><button class="ajout">Prêt</button></a>
                         </div>
                     </div>
                 <% } %>

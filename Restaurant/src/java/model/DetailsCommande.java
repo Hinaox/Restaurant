@@ -33,12 +33,12 @@ public class DetailsCommande extends Mere{
     }
     
     public void enPreparation(Connection con) throws SQLException {
-        this.setEtape(2);
+        this.setEtape(1);
         this.update(con, this);
     }
     
     public void estPrepare(Connection con) throws SQLException {
-        this.setEtape(3);
+        this.setEtape(2);
         this.update(con, this);
     }
 

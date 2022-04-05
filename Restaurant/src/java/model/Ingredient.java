@@ -13,6 +13,7 @@ import db.Mere;
  */
 public class Ingredient extends Mere{
     String idPlat;
+    String idProduit;
     String nom;
     Double prix;//par gramme
     int qte;
@@ -29,6 +30,14 @@ public class Ingredient extends Mere{
         this.somme = somme;
     }
 
+    public String getIdProduit() {
+        return idProduit;
+    }
+
+    public void setIdProduit(String idProduit) {
+        this.idProduit = idProduit;
+    }
+    
     public String getIdPlat() {
         return idPlat;
     }
