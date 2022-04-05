@@ -41,11 +41,14 @@ public class AjoutCommandeController extends HttpServlet {
         Vector<DetailsCommande> listeDetailsCommande = (Vector<DetailsCommande>) context.getAttribute("listeDetailsCommande");
         DetailsCommande d = new DetailsCommande();
         d.setIdCommande(session.getAttribute("idCommande").toString());
+        d.setIdServeur(session.getAttribute("idServeur").toString());
         d.setIdPlat(request.getParameter("idPlat"));
-        d.setPrix(request.getParameter("prix"));
+        d.setPrix(Double.parseDouble(request.getParameter("prix")));
         if(listeDetailsCommande==null)
             listeDetailsCommande = new Vector();
         CommandeService.ajouterDetailsCommande(listeDetailsCommande, d);
+        context.setAttribute("listeDetailsCommande", listeDetailsCommande);
+        response.sendRedirect("liste-plat");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

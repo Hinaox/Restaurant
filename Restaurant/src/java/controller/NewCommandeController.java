@@ -7,6 +7,7 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -37,6 +38,9 @@ public class NewCommandeController extends HttpServlet {
         String idCommande = CommandeService.nouvelleCommande(numTable);
         HttpSession session = request.getSession();
         session.setAttribute("idCommande", idCommande);
+        session.setAttribute("idServeur", request.getParameter("idServeur"));
+        ServletContext context = request.getServletContext();
+        context.setAttribute("listeDetailsCommande", null);
         //System.out.println(idCommande);
         response.sendRedirect("liste-plat");
     }

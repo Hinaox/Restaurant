@@ -7,23 +7,23 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Vector;
-import javax.servlet.ServletContext;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.DetailsCommande;
-import services.CommandeService;
+import services.PlatService;
 
 /**
  *
- * @author amboa
+ * @author toavi
  */
-@WebServlet(name = "ValiderCommandeController", urlPatterns = {"/ValiderCommande"})
-public class ValiderCommandeController extends HttpServlet {
+@WebServlet(name = "IngredientUtiliseController", urlPatterns = {"/liste-ingredients-utilise"})
+public class IngredientUtiliseController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,14 +36,16 @@ public class ValiderCommandeController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ServletContext context = request.getServletContext();
-        HttpSession session = request.getSession();
-        Vector<DetailsCommande> listeDetailsCommande =(Vector<DetailsCommande>) context.getAttribute("listeDetailsCommande");
-        CommandeService.insertCommande(listeDetailsCommande);
-        context.setAttribute("listeDetailsCommande", null);
-        session.setAttribute("idCommande", null);
-        session.setAttribute("idServeur", null);
-        response.sendRedirect("liste-plat");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        try{
+            Date debut = format.parse(request.getParameter("dateDebut"));
+            Date fin = format.parse(request.getParameter("dateDebut"));
+            List<UtilisationIngredient>listeIngredient = PlatService.getUtilisationIngredient(debut,fin);
+            request.setAttribute("listeIngredients", listeIngredient);
+            request.getRequestDispatcher("ingredient-utilise.jsp").forward(request, response);
+        }catch(ParseException e){
+            e.printStackTrace();
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -15,7 +15,7 @@ public class Ingredient extends Mere{
     String idPlat;
     String nom;
     Double prix;//par gramme
-    int quantite;
+    int qte;
     Double somme;
 
     public Ingredient() {
@@ -25,7 +25,7 @@ public class Ingredient extends Mere{
         this.idPlat = idPlat;
         this.nom = nom;
         this.prix = prix;
-        this.quantite = quantite;
+        this.qte = quantite;
         this.somme = somme;
     }
 
@@ -53,12 +53,12 @@ public class Ingredient extends Mere{
         this.prix = prix;
     }
 
-    public int getQuantite() {
-        return quantite;
+    public int getQte() {
+        return qte;
     }
 
-    public void setQuantite(int quantite) {
-        this.quantite = quantite;
+    public void setQte(int quantite) {
+        this.qte = quantite;
     }
 
     public Double getSomme() {

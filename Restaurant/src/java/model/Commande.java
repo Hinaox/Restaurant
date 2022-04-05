@@ -13,8 +13,7 @@ import db.Mere;
  */
 public class Commande extends Mere{
     String id;
-    String idServeur;
-    String idTable;
+    String numTable;
     String dateCommande;
 
     public Commande() {
@@ -22,8 +21,7 @@ public class Commande extends Mere{
 
     public Commande(String id, String idServeur, String idTable, String dateCommande) {
         this.id = id;
-        this.idServeur = idServeur;
-        this.idTable = idTable;
+        this.numTable = idTable;
         this.dateCommande = dateCommande;
     }
 
@@ -35,20 +33,12 @@ public class Commande extends Mere{
         this.id = id;
     }
 
-    public String getIdServeur() {
-        return idServeur;
+    public String getNumTable() {
+        return numTable;
     }
 
-    public void setIdServeur(String idServeur) {
-        this.idServeur = idServeur;
-    }
-
-    public String getIdTable() {
-        return idTable;
-    }
-
-    public void setIdTable(String idTable) {
-        this.idTable = idTable;
+    public void setNumTable(String idTable) {
+        this.numTable = idTable;
     }
 
     public String getDateCommande() {

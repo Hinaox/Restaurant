@@ -9,10 +9,16 @@ import db.ManipDb;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
+import model.AdditionParTable;
+import model.Commande;
 import model.DetailsCommande;
+import model.DetailsCommandeNonLivre;
 import model.Pourboire;
 import model.PrixDeVente;
+import model.Tables;
 import static services.Service.database;
 import static services.Service.password;
 import static services.Service.user;
@@ -23,11 +29,92 @@ import static services.Service.user;
  */
 public class CommandeService extends Service{
     
+    public static DetailsCommande[] getListeLivraisonExterieur() {
+        try {
+            Connection con = ManipDb.pgConnect(user, database, password);
+            DetailsCommande d = new DetailsCommande();
+            Object[] result = d.getFromView(con, "detailsCommandePret", " WHERE idTables = 'Tables1'");
+            DetailsCommande[] listeNonPrepare = new DetailsCommande[result.length];
+            for(int i=0; i<result.length; i++) listeNonPrepare[i] = (DetailsCommande) result[i];
+            con.close();
+            return listeNonPrepare;
+        } catch(Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    public static DetailsCommande[] listeDetailsCommandePret() {
+        try {
+            Connection con = ManipDb.pgConnect(user, database, password);
+            DetailsCommande d = new DetailsCommande();
+            Object[] result = d.getFromView(con, "detailsCommandePret", " WHERE idTables != 'Tables1'");
+            DetailsCommande[] listeNonPrepare = new DetailsCommande[result.length];
+            for(int i=0; i<result.length; i++) listeNonPrepare[i] = (DetailsCommande) result[i];
+            con.close();
+            return listeNonPrepare;
+        } catch(Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    public static List<DetailsCommande> commandeEnAttente() {
+        try {
+            Connection con = ManipDb.pgConnect(user, database, password);
+            DetailsCommande d = new DetailsCommande();
+            d.setEtape(0);
+            Object[] result = d.getFromView(con, "detailsCommandeNonLivre", "");
+            List<DetailsCommande> listeNonPrepare = new ArrayList();
+            for(Object elt: result) listeNonPrepare.add((DetailsCommande) elt);
+            con.close();
+            return listeNonPrepare;
+        } catch(Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    public static List<DetailsCommande> commandeEnCours() {
+        try {
+            Connection con = ManipDb.pgConnect(user, database, password);
+            DetailsCommande d = new DetailsCommande();
+            d.setEtape(1);
+            Object[] result = d.getFromView(con, "detailsCommandeNonLivre", "");
+            List<DetailsCommande> listeNonPrepare = new ArrayList();
+            for(Object elt: result) listeNonPrepare.add((DetailsCommande) elt);
+            con.close();
+            return listeNonPrepare;
+        } catch(Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    public static Vector<Tables> getTables() {
+        try {
+            Connection con = ManipDb.pgConnect(user, database, password);
+            Tables model = new Tables();
+            Object[] result = model.findAll(con, "");
+            Vector<Tables> listeDetailsCommande = new Vector();
+            for(Object  elt: result) {
+                listeDetailsCommande.add((Tables) elt);
+            }
+            con.close();
+            return listeDetailsCommande;
+        } catch(Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
     public static String nouvelleCommande(String numTable) {
         try {
             Connection con = ManipDb.pgConnect(user, database, password);
             Statement stmt = con.createStatement();
-            String req = "INSERT INTO commande VALUES (CONCAT('CMD', NEXTVAL('commandeSeq')), '"+numTable+"', (SELECT CURRENT_DATE)) RETURNING id";
+            String req = "INSERT INTO commande(id, numTable, dateCommande) VALUES (CONCAT('CMD', NEXTVAL('commandeSeq')), '"+numTable+"', (SELECT CURRENT_DATE)) RETURNING id";
+            System.out.println("=====================================");
+            System.out.println(req);
             ResultSet res = stmt.executeQuery(req);
             String retour = null;
             while(res.next())
@@ -41,7 +128,7 @@ public class CommandeService extends Service{
         }
     }
     
-    public void insertCommande(Vector<DetailsCommande> listeDetailsCommande) {
+    public static void insertCommande(Vector<DetailsCommande> listeDetailsCommande) {
         try {
             Connection con = ManipDb.pgConnect(user, database, password);
             for(DetailsCommande d: listeDetailsCommande) {
@@ -66,6 +153,42 @@ public class CommandeService extends Service{
         listeDetailsCommande.add(d);
     }
     
+    public static Vector<AdditionParTable> getAddition(String numTable) {
+        try {
+            Connection con = ManipDb.pgConnect(user, database, password);
+            AdditionParTable model = new AdditionParTable();
+            if(!numTable.equals("all")) model.setNumTable(numTable);
+            Object[] result = model.findAll(con, "");
+            Vector<AdditionParTable> listeDetailsCommande = new Vector();
+            for(Object  elt: result) {
+                listeDetailsCommande.add((AdditionParTable) elt);
+            }
+            con.close();
+            return listeDetailsCommande;
+        } catch(Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    } 
+    
+    public static Vector<Commande> getCommande(String numTable) {
+        try {
+            Connection con = ManipDb.pgConnect(user, database, password);
+            Commande model = new Commande();
+            if(!numTable.equals("")) model.setNumTable(numTable);
+            Object[] result = model.findAll(con, "");
+            Vector<Commande> listeDetailsCommande = new Vector();
+            for(Object  elt: result) {
+                listeDetailsCommande.add((Commande) elt);
+            }
+            con.close();
+            return listeDetailsCommande;
+        } catch(Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    } 
+    
     public static Vector<DetailsCommande> getDetailsCommande(String idCommande) {
         try {
             Connection con = ManipDb.pgConnect(user, database, password);
@@ -88,7 +211,7 @@ public class CommandeService extends Service{
         try {
             Connection con = ManipDb.pgConnect(user, database, password);
             Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            String req = "SELECT idServeur, nom, SUM(pourboire) as totalPourboire FROM additionDetails ";
+            String req = "SELECT idServeur, nom, SUM(prix)*0.02 as totalPourboire FROM additionDetails ";
             if((dateFin!= null) && (dateDebut!= null)) req += " WHERE dateCommande BETWEEN '"+dateDebut+"' AND '"+dateFin+"'";
             if(!idServeur.equals("all")) {
                 if((dateFin!= null) && (dateDebut!= null)) req += " AND idServeur = '"+idServeur+"'";

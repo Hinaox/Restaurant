@@ -1,0 +1,27 @@
+.panier{
+    width: 95%;
+    padding: .5em;
+}
+
+.panier .titra{
+    color: black;
+    font-size: 2em;
+}
+
+.panier .contenu-panier{
+    color: rgba(0, 0, 0, 0.8);
+    font-weight: 400;
+}
+.panier .contenu-panier .element-contenu-panier{
+    color: rgba(0, 0, 0, 0.8);
+    padding: 3px 3px;
+}
+.panier .contenu-panier .element-contenu-panier .nomPlat{
+    font-size:1.3em;
+}
+
+.meta{
+    padding: 5px 5px;
+    border: 2px solid brown;
+    border-radius: 4px;
+}

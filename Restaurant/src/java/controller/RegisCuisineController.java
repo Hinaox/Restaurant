@@ -7,23 +7,25 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Vector;
-import javax.servlet.ServletContext;
+import java.util.HashMap;
+import java.util.List;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import model.DetailsCommande;
+import model.Plat;
 import services.CommandeService;
+import services.PlatService;
 
 /**
  *
  * @author amboa
  */
-@WebServlet(name = "ValiderCommandeController", urlPatterns = {"/ValiderCommande"})
-public class ValiderCommandeController extends HttpServlet {
+@WebServlet(name = "RegisCuisineController", urlPatterns = {"/RegisCuisine"})
+public class RegisCuisineController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,14 +38,14 @@ public class ValiderCommandeController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ServletContext context = request.getServletContext();
-        HttpSession session = request.getSession();
-        Vector<DetailsCommande> listeDetailsCommande =(Vector<DetailsCommande>) context.getAttribute("listeDetailsCommande");
-        CommandeService.insertCommande(listeDetailsCommande);
-        context.setAttribute("listeDetailsCommande", null);
-        session.setAttribute("idCommande", null);
-        session.setAttribute("idServeur", null);
-        response.sendRedirect("liste-plat");
+        List<DetailsCommande> listeEnAttente = CommandeService.commandeEnAttente();
+        List<DetailsCommande> listeEnCours = CommandeService.commandeEnCours();
+        HashMap<String, Plat> listePlatParId = PlatService.listePlatParId();
+        request.setAttribute("listeEnAttente", listeEnAttente);
+        request.setAttribute("listeEnCours", listeEnCours);
+        request.setAttribute("listePlatParId", listePlatParId);
+        RequestDispatcher dispat = request.getRequestDispatcher("regis-cuisine.jsp");
+        dispat.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

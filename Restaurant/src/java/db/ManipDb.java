@@ -42,7 +42,7 @@ public class ManipDb {/* this class is for all database manipulations */
 
     public static Connection pgConnect(String user, String database, String password) throws Exception {
         Class.forName("org.postgresql.Driver");
-        String url = "jdbc:postgresql://192.168.85.213/" + database;
+        String url = "jdbc:postgresql://192.168.43.66/" + database;
         Connection con = DriverManager.getConnection(url, user, password);
         return con;
     }
