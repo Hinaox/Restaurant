@@ -16,6 +16,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.UtilisationIngredient;
 import services.PlatService;
 
 /**
@@ -37,10 +38,14 @@ public class IngredientUtiliseController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date debut = new Date();
+        Date fin = new Date();
         try{
-            Date debut = format.parse(request.getParameter("dateDebut"));
-            Date fin = format.parse(request.getParameter("dateDebut"));
-            List<UtilisationIngredient>listeIngredient = PlatService.getUtilisationIngredient(debut,fin);
+            if(request.getParameter("dateDebut")!=null)
+                debut = format.parse(request.getParameter("dateDebut"));
+            if(request.getParameter("dateFin") != null)
+                fin = format.parse(request.getParameter("dateFin"));
+            List<UtilisationIngredient> listeIngredient = PlatService.getUtilisationIngredient(debut,fin);
             request.setAttribute("listeIngredients", listeIngredient);
             request.getRequestDispatcher("ingredient-utilise.jsp").forward(request, response);
         }catch(ParseException e){

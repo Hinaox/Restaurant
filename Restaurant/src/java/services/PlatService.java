@@ -9,7 +9,9 @@ import db.ManipDb;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
@@ -32,13 +34,14 @@ public class PlatService extends Service{
         
     }*/
     
-    public static List<UtilisationIngredient> getUtilisationIngredient() {
+    public static List<UtilisationIngredient> getUtilisationIngredient(Date d1, Date d2) {
         try {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             Connection con = ManipDb.pgConnect(user, database, password);
             Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             String req = "select ingredient.idProduit, ingredient.nom, sum(ingredient.qte) as quantite, sum(ingredient.prix) as prix " +
                         "    from ingredient join detailsCommande on ingredient.idPlat=detailsCommande.idPlat " +
-                        "    where detailsCommande.dateCommande between '2022-04-03' and '2022-04-10'";
+                        "    where detailsCommande.dateCommande between '"+format.format(d1)+"' and '"+format.format(d2)+"'";
             ResultSet res = stmt.executeQuery(req);
             List<UtilisationIngredient> listeUtilisation = new ArrayList();
             while(res.next()) {
