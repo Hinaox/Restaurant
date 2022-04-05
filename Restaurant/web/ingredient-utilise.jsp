@@ -1,3 +1,7 @@
+
+<% 
+
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -52,7 +56,7 @@
                 </div>
             </div>
             <div class="containerIngredient">
-                <h2 class="sectionTitle">Ingredients utilisés</h2>
+                <h2 class="sectionTitle">Ingredients utilisï¿½s</h2>
                 <table class="table">
                     <thead>
                         <tr>
