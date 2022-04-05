@@ -14,6 +14,7 @@ import java.util.Vector;
 import model.Categorie;
 import model.CategorieDetail;
 import model.CategoriePlat;
+import model.Ingredient;
 import model.Plat;
 import model.PrixDeVente;
 import model.PrixRevient;
@@ -75,6 +76,42 @@ public class PlatService extends Service{
             e.printStackTrace();
             return null;
         }
+    }
+    
+    public static Vector<Ingredient> getIngredient(String idPlat) {
+        try {
+            Connection con = ManipDb.pgConnect(user, database, password);
+            Ingredient p = new Ingredient();
+            if(idPlat!=null)p.setIdPlat(idPlat);
+            Object[] result = p.findAll(con, "");
+            Vector<Ingredient> listePlat = new Vector();
+            for(Object elt: result) {
+                listePlat.add((Ingredient) elt);
+            }
+            con.close();
+            return listePlat;
+        } catch(Exception e) {
+            e.printStackTrace();
+            return null;
+        }  
+    }
+    
+    public static Vector<Plat> getPlat(String id) {
+        try {
+            Connection con = ManipDb.pgConnect(user, database, password);
+            Plat p = new Plat();
+            if(id!=null)p.setId(id);
+            Object[] result = p.findAll(con, "");
+            Vector<Plat> listePlat = new Vector();
+            for(Object elt: result) {
+                listePlat.add((Plat) elt);
+            }
+            con.close();
+            return listePlat;
+        } catch(Exception e) {
+            e.printStackTrace();
+            return null;
+        }  
     }
     
     public static Vector<Plat> listePlat() {

@@ -8,22 +8,22 @@ package controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Vector;
-import javax.servlet.ServletContext;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.DetailsCommande;
-import services.CommandeService;
+import model.Ingredient;
+import model.Plat;
+import services.PlatService;
 
 /**
  *
  * @author amboa
  */
-@WebServlet(name = "ValiderCommandeController", urlPatterns = {"/ValiderCommande"})
-public class ValiderCommandeController extends HttpServlet {
+@WebServlet(name = "FichePlatController", urlPatterns = {"/FichePlat"})
+public class FichePlatController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,14 +36,13 @@ public class ValiderCommandeController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ServletContext context = request.getServletContext();
-        HttpSession session = request.getSession();
-        Vector<DetailsCommande> listeDetailsCommande =(Vector<DetailsCommande>) context.getAttribute("listeDetailsCommande");
-        CommandeService.insertCommande(listeDetailsCommande);
-        context.setAttribute("listeDetailsCommande", null);
-        session.setAttribute("idCommande", null);
-        session.setAttribute("idServeur", null);
-        response.sendRedirect("liste-plat");
+        RequestDispatcher dispat = request.getRequestDispatcher("fichePlat.jsp");
+        String idPlat = request.getParameter("idPlat");
+        Vector<Plat> plat = PlatService.getPlat(idPlat);
+        Vector<Ingredient> listeIngredient = PlatService.getIngredient(idPlat);
+        request.setAttribute("plat", plat);
+        request.setAttribute("listeIngredient", listeIngredient);
+        dispat.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

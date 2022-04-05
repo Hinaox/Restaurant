@@ -1,0 +1,25 @@
+.facture{
+    margin-top: 5px;
+    background-color: white;
+    padding: .5em;
+}
+
+.total-adition{
+    padding: 1em;
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+}
+.total-adition span{
+    font-weight: 600;
+    font-size: 1.5em;
+    padding: 0em .5em;
+    /* position: absolute; */
+    /* right: 0; */
+}
+
+.daty{
+    color: rebeccapurple;
+    font-size: .8em !important;
+    font-weight: 400;
+}

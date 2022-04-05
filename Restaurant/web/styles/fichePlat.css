@@ -1,0 +1,39 @@
+.titrePlat{
+    font-size: 3em;
+    padding-left:.5em;
+    color: rgb(4, 53, 117);
+}
+hr{
+    background-color: black;
+    border: 2px solid black;
+}
+.metadata{
+    display: grid;
+    grid-template-columns:repeat( 2,1fr);
+}
+
+.metadata .imgContainer{
+    border-radius: 6px;
+    height: fit-content;
+}
+.metadata .imgContainer img{
+    border-radius: 6px;
+}
+
+.metadata .composant{
+    background-color: white;
+    padding: 1em;
+    margin:0px 5px;
+    box-shadow: -1px 1px 2px .5px rgba(0,0,0, 0.4);
+    border-radius: 6px;
+}
+
+.composant{
+    font-size: 1.5em;
+}
+
+.titreComposant{
+    font-size: 1.7em;
+    color: rgb(252, 184, 84);
+    text-decoration: underline;
+}

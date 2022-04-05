@@ -7,15 +7,20 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.Vector;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.DetailsCommande;
 import model.Plat;
+import model.Serveur;
 import services.PlatService;
+import services.ServeurService;
 
 /**
  *
@@ -36,11 +41,20 @@ public class ListePlatController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String idCategorie = request.getParameter("idCategorie");
+        //ServletContext context = request.getServletContext();
         Vector<Plat> listePlat = PlatService.listePlatCategorie(idCategorie);
-        request.setAttribute("listePlat", listePlat);
+        HashMap<String, Plat> hashMapPlat = new HashMap();
+        for(Plat p: listePlat) {
+            hashMapPlat.put(p.getId(), p);
+        }
+        //Vector<DetailsCommande> listeDetailsCommande = (Vector<DetailsCommande>) context.getAttribute("listeDetailsCommande");
+        Vector<Serveur> listeServeur = ServeurService.listeServeur();
+        request.setAttribute("listeServeur", listeServeur);
+        request.setAttribute("listePlat", hashMapPlat);
+        //request.setAttribute("listeDetailsCommande", listeDemandeCommande);
         //PrintWriter out = response.getWriter();
         //out.println(listePlat.size());
-        RequestDispatcher dispat = request.getRequestDispatcher("liste-plat_1.jsp");
+        RequestDispatcher dispat = request.getRequestDispatcher("liste-plat.jsp");
         dispat.forward(request, response);
     }
 
