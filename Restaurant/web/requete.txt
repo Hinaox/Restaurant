@@ -1,0 +1,3 @@
+select ingredient.idProduit, ingredient.nom, sum(ingredient.qte) as quantite 
+    from ingredient join detailsCommande on ingredient.idPlat=detailsCommande.idPlat 
+    where detailsCommande.dateCommande between '2022-04-03' and '2022-04-10'

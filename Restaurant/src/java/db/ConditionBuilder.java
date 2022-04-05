@@ -1,4 +1,4 @@
-package utility;
+package db;
 
 public class ConditionBuilder {
     private String dateFormat;
