@@ -46,14 +46,13 @@ public class PlatService extends Service{
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             Connection con = ManipDb.pgConnect(user, database, password);
             Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            String req = "select ingredient.idProduit, ingredient.nom, sum(ingredient.qte) as quantite, sum(ingredient.prix) as prix " +
-                        "    from ingredient join detailsCommande on ingredient.idPlat=detailsCommande.idPlat " +
-                        "    where detailsCommande.dateCommande between '"+format.format(d1)+"' and '"+format.format(d2)+"'";
+            String req = "select ingredient.nom, sum(ingredient.qte) as quantite,(ingredient.prix) as prix" +
+                        "    from ingredient join detailsCommande on ingredient.idPlat=detailsCommande.idPlat" +
+                        "    where detailsCommande.dateCommande between '"+format.format(d1)+"' and '"+format.format(d2)+"' group by ingredient.nom ,  ingredient.prix";
             ResultSet res = stmt.executeQuery(req);
             List<UtilisationIngredient> listeUtilisation = new ArrayList();
             while(res.next()) {
                 UtilisationIngredient utilisation = new UtilisationIngredient();
-                utilisation.setIdIngredient(res.getString("idProduit"));
                 utilisation.setNom(res.getString("nom"));
                 utilisation.setPrix(res.getDouble("prix"));
                 utilisation.setQuantite(res.getDouble("quantite"));

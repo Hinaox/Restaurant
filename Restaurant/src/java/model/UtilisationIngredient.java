@@ -32,7 +32,7 @@ public class UtilisationIngredient {
     }
 
     public double getPrix() {
-        return prix;
+        return prix * this.quantite;
     }
 
     public void setPrix(double prix) {
