@@ -47,6 +47,7 @@ public class IngredientUtiliseController extends HttpServlet {
                 fin = format.parse(request.getParameter("dateFin"));
             List<UtilisationIngredient> listeIngredient = PlatService.getUtilisationIngredient(debut,fin);
             request.setAttribute("listeIngredients", listeIngredient);
+            request.setAttribute("totalPrix", PlatService.totalPrix(listeIngredient));
             request.getRequestDispatcher("ingredient-utilise.jsp").forward(request, response);
         }catch(ParseException e){
             e.printStackTrace();

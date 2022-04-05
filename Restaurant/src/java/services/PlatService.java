@@ -34,6 +34,13 @@ public class PlatService extends Service{
         
     }*/
     
+    public static double totalPrix(List<UtilisationIngredient> listeUtilisation) {
+        double count = 0;
+        for(UtilisationIngredient u: listeUtilisation)
+            count += u.getPrix();
+        return count;
+    }
+    
     public static List<UtilisationIngredient> getUtilisationIngredient(Date d1, Date d2) {
         try {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
