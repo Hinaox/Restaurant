@@ -1,7 +1,7 @@
 <%@page import="java.util.List"%>
-<%@page import="model.UtilisationIngredient"%>
+<%@page import="model.EtatIngredient"%>
 <%
-    List<UtilisationIngredient> listeIngredients = (List<UtilisationIngredient>) request.getAttribute("listeIngredients");
+    List<EtatIngredient> listeIngredients = (List<EtatIngredient>) request.getAttribute("listeEtat");
     double prix = (double) request.getAttribute("totalPrix");
 %>
 <!DOCTYPE html>
@@ -36,49 +36,21 @@
 
             </div>
             <div class="mainContainer">
-                <div class="filtre">
-
-                    <h1>Filtre</h1>
-                    <div class="formulaire">
-                        <form action="" method="GET">
-
-                            <p>
-                                <label for="dateDebut">Date debut:</label>
-                                <input type="date" name="dateDebut" id="dateDebut">
-                            </p>
-                            <p>
-                                <label for="dateFin">Date Fin:</label>
-                                <input type="date" name="dateFin" id="dateFin">
-                            </p>
-                            <p>
-                                <button class="" type="submit">Filtrer</button>
-                            </p>   
-                        </form>
-
-                    </div>
-                </div>
                 <div class="containerIngredient">
                     <h2 class="sectionTitle">Ingredients utilisés;</h2>
                     <table class="table">
                         <thead>
                             <tr>
-
                                 <th scope="col">Ingredient</th>
-                                <th scope="col">Quantite</th>
                                 <th scope="col">Quantite restant</th>
-                                <th scope="col">Prix</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <% if (listeIngredients != null) { %>
-                            <% for (UtilisationIngredient utilisation : listeIngredients) {%>
+                            <% for (EtatIngredient utilisation : listeIngredients) {%>
                             <tr>
                                 <th scope="row"><%=utilisation.getNom()%></th>
                                 <td><%=utilisation.getQuantite()%> g</td>
-                                <td><%=utilisation.getRestant()%> g</td>
-                                <td><%=utilisation.getPrix()%> Ar</td>
                             </tr>
-                            <% }%>
                             <% }%>
                             <tr>
                                 <th></th>

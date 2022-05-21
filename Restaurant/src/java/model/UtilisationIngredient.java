@@ -14,6 +14,9 @@ public class UtilisationIngredient {
     String nom;
     double prix;
     double quantite;
+    double restant;
+    
+    
 
     public UtilisationIngredient() {
     }
@@ -23,6 +26,15 @@ public class UtilisationIngredient {
         this.quantite = quantite;
     }
 
+    public double getRestant() {
+        return restant;
+    }
+
+    public void setRestant(double restant) {
+        this.restant = restant;
+    }
+
+    
     public String getNom() {
         return nom;
     }

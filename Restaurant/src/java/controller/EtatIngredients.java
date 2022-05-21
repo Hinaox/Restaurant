@@ -6,24 +6,22 @@
 package controller;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.UtilisationIngredient;
+import model.EtatIngredient;
 import services.PlatService;
 
 /**
  *
  * @author toavi
  */
-@WebServlet(name = "IngredientUtiliseController", urlPatterns = {"/liste-ingredients-utilise"})
-public class IngredientUtiliseController extends HttpServlet {
+@WebServlet(name = "EtatIngredients", urlPatterns = {"/etat-ingredients"})
+public class EtatIngredients extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,21 +34,10 @@ public class IngredientUtiliseController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Date debut = new Date();
-        Date fin = new Date();
-        try{
-            if(request.getParameter("dateDebut")!=null)
-                debut = format.parse(request.getParameter("dateDebut"));
-            if(request.getParameter("dateFin") != null)
-                fin = format.parse(request.getParameter("dateFin"));
-            List<UtilisationIngredient> listeIngredient = PlatService.getUtilisationIngredient(debut,fin);
-            request.setAttribute("listeIngredients", listeIngredient);
-            request.setAttribute("totalPrix", PlatService.totalPrix(listeIngredient));
-            request.getRequestDispatcher("ingredient-utilise.jsp").forward(request, response);
-        }catch(ParseException e){
-            e.printStackTrace();
-        }
+        response.setContentType("text/html;charset=UTF-8");
+        List<EtatIngredient> listeEtats = PlatService.getEtatIngredient();
+        request.setAttribute("listeEtat", listeEtats);
+        request.getRequestDispatcher("etat-ingredients.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
