@@ -12,5 +12,5 @@ package services;
 public class Service {
     public static String user="postgres";
     public static String database="restaurant";
-    public static String password="mdpprom13";
+    public static String password="root";
 }

@@ -4,6 +4,7 @@
     Author     : TiavinaJoy
 --%>
 
+<%@page import="model.Photo"%>
 <%@page import="model.Serveur"%>
 <%@page import="java.util.Set"%>
 <%@page import="java.util.HashMap"%>
@@ -17,6 +18,7 @@
     ServletContext context = request.getServletContext();
     Vector<DetailsCommande> listeDetailsCommande = (Vector<DetailsCommande>) context.getAttribute("listeDetailsCommande");
     Vector<Serveur> listeServeur = (Vector<Serveur>) request.getAttribute("listeServeur");
+    HashMap<String, Photo> hashMapPhoto = (HashMap<String, Photo>) request.getAttribute("hashMapPhoto");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -111,7 +113,7 @@
                 <% for(String key: keys) { %>
                 <div class="cardPlat">
                     <div class="photo">
-                        <img src="images/img/huitre.jpg" height="300" alt="">
+                        <img src="images/img/<%= hashMapPhoto.get(listePlat.get(key).getIdPhoto()).getNom() %>" height="300" alt="">
                     </div>
                     <div class="nom"><%= listePlat.get(key).getNom() %></div>
                     <div class="metadata">

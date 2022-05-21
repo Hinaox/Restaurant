@@ -18,6 +18,7 @@ public class Plat extends Mere{
     String id;
     String nom;
     Double prix;
+    String idPhoto;
 
     public Plat() {
     }
@@ -26,6 +27,14 @@ public class Plat extends Mere{
         this.id = id;
         this.nom = nom;
         this.prix = prix;
+    }
+
+    public String getIdPhoto() {
+        return idPhoto;
+    }
+
+    public void setIdPhoto(String idPhoto) {
+        this.idPhoto = idPhoto;
     }
     
     public Double getPrixRevient() {

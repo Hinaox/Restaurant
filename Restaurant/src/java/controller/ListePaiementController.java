@@ -7,24 +7,23 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Vector;
+import java.util.HashMap;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Ingredient;
-import model.Photo;
-import model.Plat;
-import services.PlatService;
+import model.PayementCommande;
+import services.PayementService;
 
 /**
  *
  * @author amboa
  */
-@WebServlet(name = "FichePlatController", urlPatterns = {"/FichePlat"})
-public class FichePlatController extends HttpServlet {
+@WebServlet(name = "ListePaiementController", urlPatterns = {"/liste-paiement"})
+public class ListePaiementController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,14 +36,15 @@ public class FichePlatController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher dispat = request.getRequestDispatcher("fichePlat.jsp");
-        String idPlat = request.getParameter("idPlat");
-        Vector<Plat> plat = PlatService.getPlat(idPlat);
-        Vector<Ingredient> listeIngredient = PlatService.getIngredient(idPlat);
-        Photo photo = PlatService.getPhoto(plat.get(0));
-        request.setAttribute("plat", plat);
-        request.setAttribute("listeIngredient", listeIngredient);
-        request.setAttribute("photo", photo);
+        RequestDispatcher dispat = request.getRequestDispatcher("liste-payement.jsp");
+        String dateDebut = request.getParameter("dateDebut");
+        String dateFin = request.getParameter("dateFin");
+        HashMap<String,List<PayementCommande>> listePayement = PayementService.listePaiement(dateDebut, dateFin);
+        HashMap<String, Double> listeTotal = PayementService.listeTotal(listePayement);
+        request.setAttribute("listePayement", listePayement);
+        request.setAttribute("listeTotal", listeTotal);
+        request.setAttribute("dateDebut", dateDebut);
+        request.setAttribute("dateFin", dateFin);
         dispat.forward(request, response);
     }
 

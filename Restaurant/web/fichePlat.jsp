@@ -1,9 +1,11 @@
+<%@page import="model.Photo"%>
 <%@page import="model.Ingredient"%>
 <%@page import="model.Plat"%>
 <%@page import="java.util.Vector"%>
 <%
     Vector<Plat> plat = (Vector<Plat>) request.getAttribute("plat");
     Vector<Ingredient> listeIngredient = (Vector<Ingredient>) request.getAttribute("listeIngredient");
+    Photo photo = (Photo) request.getAttribute("photo");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -40,7 +42,7 @@
            <hr>
            <div class="metadata">
                <div class="imgContainer">
-                   <img src="images/img/huitre.jpg" height="620" alt="">
+                   <img src="images/img/<%= photo.getNom() %>" height="620" alt="">
                </div>
                <div class="composant">
                    <h2 class="titreComposant"> Ingredients:</h2>

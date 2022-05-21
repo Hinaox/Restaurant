@@ -15,10 +15,13 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Categorie;
 import model.CategorieDetail;
 import model.CategoriePlat;
 import model.Ingredient;
+import model.Photo;
 import model.Plat;
 import model.PrixDeVente;
 import model.PrixRevient;
@@ -33,6 +36,38 @@ public class PlatService extends Service{
     /*public static Double getPrixVente(Double prixRevient, Double limite1, Double limite2) {
         
     }*/
+    
+    public static HashMap<String, Photo> hashMapPhoto() {
+        try {
+            Connection con = ManipDb.pgConnect(user, database, password);
+            Photo photo = new Photo();
+            Object[] result = photo.findAll(con, "");
+            HashMap<String, Photo> hashMapPhoto = new HashMap();
+            for( Object elt: result) {
+                photo = (Photo) elt;
+                hashMapPhoto.put(photo.getId(), photo);
+            }
+            con.close();
+            return hashMapPhoto;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+    
+    public static Photo getPhoto(Plat p) {
+        try {
+            Connection con = ManipDb.pgConnect(user, database, password);
+            Photo photo = new Photo();
+            photo.setId(p.getIdPhoto());
+            photo = (Photo) photo.find(con, "");
+            con.close();
+            return photo;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
     
     public static double totalPrix(List<UtilisationIngredient> listeUtilisation) {
         double count = 0;
@@ -203,6 +238,7 @@ public class PlatService extends Service{
                 p.setId(res.getString("id"));
                 p.setNom(res.getString("nom"));
                 p.setPrix(res.getDouble("prix"));
+                p.setIdPhoto(res.getString("idPhoto"));
                 listePlat.add(p);
             }
             return listePlat;

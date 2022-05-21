@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.DetailsCommande;
+import model.Photo;
 import model.Plat;
 import model.Serveur;
 import services.PlatService;
@@ -47,10 +48,11 @@ public class ListePlatController extends HttpServlet {
         for(Plat p: listePlat) {
             hashMapPlat.put(p.getId(), p);
         }
-        //Vector<DetailsCommande> listeDetailsCommande = (Vector<DetailsCommande>) context.getAttribute("listeDetailsCommande");
+        HashMap<String, Photo> hashMapPhoto = PlatService.hashMapPhoto();
         Vector<Serveur> listeServeur = ServeurService.listeServeur();
         request.setAttribute("listeServeur", listeServeur);
         request.setAttribute("listePlat", hashMapPlat);
+        request.setAttribute("hashMapPhoto", hashMapPhoto);
         //request.setAttribute("listeDetailsCommande", listeDemandeCommande);
         //PrintWriter out = response.getWriter();
         //out.println(listePlat.size());
