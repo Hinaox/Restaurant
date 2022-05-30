@@ -112,15 +112,17 @@ public class PlatService extends Service {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             Connection con = ManipDb.pgConnect(user, database, password);
             Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            String req = "select ingredient.nom, sum(mouvementStock.qte) as quantite"
+            String req = "select ingredient.nom, sum(mouvementStock.qte) as quantite, sum(mouvementStock.qte)*ingredient.prix as prixTotal"
                     + " from ingredient join mouvementStock on ingredient.idProduit = mouvementStock.idProduit " + 
-                    " group by ingredient.nom";
+                    " group by ingredient.nom, ingredient.prix";
             System.out.println(req);
             ResultSet res = stmt.executeQuery(req);
             while (res.next()) {
                 EtatIngredient etat = new EtatIngredient();
                 etat.setNom(res.getString("nom"));
                 etat.setQuantite(res.getDouble("quantite"));
+                etat.setPrixTotal(res.getDouble("prixTotal"));
+                listeEtat.add(etat);
             }
             stmt.close();
             con.close();

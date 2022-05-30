@@ -132,7 +132,7 @@ public class CommandeService extends Service{
         try {
             Connection con = ManipDb.pgConnect(user, database, password);
             Statement stmt = con.createStatement();
-            String req = "INSERT INTO commande(id, numTable, dateCommande) VALUES (CONCAT('CMD', NEXTVAL('commandeSeq')), '"+numTable+"', (SELECT CURRENT_DATE)) RETURNING id";
+            String req = "INSERT INTO commande(id, numTable) VALUES (CONCAT('CMD', NEXTVAL('commandeSeq')), '"+numTable+"' ) RETURNING id";
             System.out.println("=====================================");
             System.out.println(req);
             ResultSet res = stmt.executeQuery(req);

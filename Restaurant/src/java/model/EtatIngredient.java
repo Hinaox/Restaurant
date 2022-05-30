@@ -12,6 +12,7 @@ package model;
 public class EtatIngredient {
     String nom;
     double quantite;
+    double prixTotal;
 
     public EtatIngredient() {
     }
@@ -20,6 +21,14 @@ public class EtatIngredient {
         return nom;
     }
 
+    public double getPrixTotal() {
+        return prixTotal;
+    }
+
+    public void setPrixTotal(double prixTotal) {
+        this.prixTotal = prixTotal;
+    }
+    
     public void setNom(String nomString) {
         this.nom = nomString;
     }

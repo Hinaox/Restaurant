@@ -37,6 +37,7 @@ public class EtatIngredients extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         List<EtatIngredient> listeEtats = PlatService.getEtatIngredient();
         request.setAttribute("listeEtat", listeEtats);
+        request.setAttribute("totalPrix", listeEtats.get(0).getPrixTotal());
         request.getRequestDispatcher("etat-ingredients.jsp").forward(request, response);
     }
 
